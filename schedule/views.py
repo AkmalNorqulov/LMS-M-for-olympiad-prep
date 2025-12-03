@@ -7,6 +7,7 @@ DAY_NAMES = [name for _, name in DAY_CHOICES]
 
 from django.db.models import TimeField
 from django.db.models.functions import Cast
+import datetime
 
 def index(request):
     week = []
@@ -32,7 +33,9 @@ def index(request):
             'tasks': tasks
         })
 
-    return render(request, 'schedule/index.html', {'week': week})
+    # compute today's weekday index (Monday=0..Sunday=6)
+    today_index = datetime.date.today().weekday()
+    return render(request, 'schedule/index.html', {'week': week, 'today_index': today_index})
 
 
 

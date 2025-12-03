@@ -22,7 +22,7 @@
     {% for day in week %}
     <div class="col-12 col-sm-6 col-lg-4">
         <a class="text-decoration-none text-body" href="{% url 'schedule:day' day.index %}">
-            <div class="card h-100 shadow-sm day-card">
+            <div class="card h-100 shadow-sm day-card {% if today_index == day.index %}today-outline{% endif %}">
                 <div class="card-body">
                     <div>
                         <h5 class="card-title mb-2">{{ day.name }}</h5>
@@ -48,4 +48,8 @@
     </div>
     {% endfor %}
 </div>
+<style>
+    /* highlight today's card with a blue outline */
+    .today-outline{border:2px solid #3b82f6 !important; box-shadow:0 6px 18px rgba(59,130,246,0.08);}
+</style>
 {% endblock %}
