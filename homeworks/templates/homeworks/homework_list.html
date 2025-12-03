@@ -10,16 +10,26 @@
         {% for homework in homeworks %}
             <div class="card mb-3">
                 <div class="card-body">
-                    <h5 class="card-title mb-1">{{ homework.title }}</h5>
-                    <p class="small text-muted mb-2">Created: {{ homework.created_at|date:"M d, Y H:i" }}</p>
-                    
-                    {% if homework.description %}
-                        <p class="small mb-2">{{ homework.description }}</p>
-                    {% endif %}
-                    
-                    {% if homework.due_time %}
-                        <p class="small text-danger"><strong>📅 Due: {{ homework.due_time }}</strong></p>
-                    {% endif %}
+                    <div class="d-flex justify-content-between align-items-start">
+                        <div>
+                            <h5 class="card-title mb-1">{{ homework.title }}</h5>
+                            <p class="small text-muted mb-2">Created: {{ homework.created_at|date:"M d, Y H:i" }}</p>
+                            
+                            {% if homework.description %}
+                                <p class="small mb-2">{{ homework.description }}</p>
+                            {% endif %}
+                            
+                            {% if homework.due_date %}
+                                <p class="small text-danger"><strong>📅 Due: {{ homework.due_date }}{% if homework.due_time %} at {{ homework.due_time }}{% endif %}</strong></p>
+                            {% endif %}
+                        </div>
+                        {% if homework.is_due_time_passed %}
+                            <form method="post" action="{% url 'homeworks:delete_homework' homework.pk %}" style="display:inline;">
+                                {% csrf_token %}
+                                <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure you want to delete this homework?');">🗑️ Delete</button>
+                            </form>
+                        {% endif %}
+                    </div>
                 </div>
             </div>
         {% endfor %}

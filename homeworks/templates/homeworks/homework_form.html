@@ -20,9 +20,15 @@
                     {{ form.description }}
                 </div>
                 
-                <div class="mb-3">
-                    <label for="id_due_time" class="form-label">Due Time</label>
-                    {{ form.due_time }}
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label for="id_due_date" class="form-label">Due Date</label>
+                        {{ form.due_date }}
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label for="id_due_time" class="form-label">Due Time</label>
+                        {{ form.due_time }}
+                    </div>
                 </div>
                 
                 <div class="d-flex gap-2">
