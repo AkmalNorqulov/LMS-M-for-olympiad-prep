@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Schedule</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        /* Small custom styles to improve mobile friendliness and spacing */
+        :root{--card-radius:12px}
+        body{font-size:0.95rem}
+        /* flatter visuals and simpler spacing */
+        .day-card{transition:none;box-shadow:none}
+        .card{border-radius:8px;border:1px solid rgba(0,0,0,0.04)}
+        .accordion-button{padding:.6rem .8rem}
+        .list-group-item{padding:.6rem .8rem}
+        .fw-medium{font-weight:600}
+
+        @media (max-width:576px){
+        .card .card-body{padding:.85rem}
+        body{font-size:0.98rem}
+        }
+
+        /* Make back link easier to tap */
+        .btn-link{font-size:0.95rem}
+    </style>
+  </head>
+  <body class="bg-light">
+    <nav class="navbar navbar-light bg-white">
+      <div class="container">
+        <a class="navbar-brand d-flex align-items-center gap-2" href="{% url 'schedule:index' %}">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-calendar3" viewBox="0 0 16 16">
+            <path d="M14 4H2V3a1 1 0 0 1 1-1h1V1a.5.5 0 0 1 1 0v1h6V1a.5.5 0 0 1 1 0v1h1a1 1 0 0 1 1 1v1z"/>
+            <path d="M2 5v8a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V5H2z"/>
+          </svg>
+          <span class="fw-semibold">My Week</span>
+        </a>
+        <div class="ms-auto">
+          <a class="btn btn-sm btn-outline-secondary" href="/admin/">Admin</a>
+        </div>
+      </div>
+    </nav>
+
+    <main class="container mb-5">
+      {% block content %}{% endblock %}
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  </body>
+</html>

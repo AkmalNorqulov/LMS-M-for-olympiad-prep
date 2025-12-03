@@ -1,0 +1,55 @@
+{% extends 'schedule/base.html' %}
+
+{% block content %}
+  <div class="d-flex justify-content-between align-items-center mb-3">
+    <a href="{% url 'schedule:index' %}" class="btn btn-primary mt-2 p-2">← Back to week</a>
+    <h1 class="h5 mb-0">{{ day_name }}</h1>
+    <div></div>
+  </div>
+
+  <div class="row gy-3">
+    <div class="col-12 col-lg-6">
+      <div class="card">
+        <div class="card-body">
+          <h3 class="h6">Lessons</h3>
+          {% if lessons.count %}
+            <ul class="list-group list-group-flush">
+              {% for lesson in lessons %}
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                  <div class="small"><strong>{{ lesson.start_time }} - {{ lesson.end_time }}</strong> — {{ lesson.title }}</div>                </li>
+              {% endfor %}
+            </ul>
+          {% else %}
+            <p class="text-muted">No lessons for this day.</p>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+
+    <div class="col-12 col-lg-6">
+      <div class="card">
+        <div class="card-body">
+          <h3 class="h6">Tasks</h3>
+          {% if tasks.count %}
+            <ul class="list-group list-group-flush">
+            {% for task in tasks %}
+              <li class="list-group-item d-flex justify-content-between align-items-center">
+                <div class="small">
+                  <strong>
+                    {% if task.start_time %}{{ task.start_time }}{% endif %}{% if task.end_time %} - {{ task.end_time }}{% endif %}
+                  </strong>
+                   — {{ task.title }}
+                </div>
+                <div class="small text-muted">{% if task.completed %}Done{% endif %}</div>
+              </li>
+            {% endfor %}
+            </ul>
+          {% else %}
+            <p class="text-muted">No tasks for this day.</p>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+
+{% endblock %}

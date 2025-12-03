@@ -1,0 +1,51 @@
+{% extends 'schedule/base.html' %}
+
+{% block content %}
+<style>
+    .time-badge {
+  background: rgba(0, 123, 255, 0.1); /* Light blue highlight */
+  padding: 2px 6px;
+  border-radius: 6px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+.lesson-item {
+  margin-bottom: 6px; /* spacing between lessons */
+}
+</style>
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h1 class="h4 mb-0">Week Overview</h1>
+    <small class="text-muted">Tap a day to view details</small>
+</div>
+
+<div class="row gy-3">
+    {% for day in week %}
+    <div class="col-12 col-sm-6 col-lg-4">
+        <a class="text-decoration-none text-body" href="{% url 'schedule:day' day.index %}">
+            <div class="card h-100 shadow-sm day-card">
+                <div class="card-body">
+                    <div>
+                        <h5 class="card-title mb-2">{{ day.name }}</h5>
+                        {% if day.lessons.count %}
+                        <ul class="list-unstyled mb-0">
+                            {% for lesson in day.lessons|slice:":3" %}
+                            <li class="small d-flex justify-content-between align-items-center lesson-item">
+                                <span>{{ lesson.title }}</span>
+                                <span class="time-badge">
+                                    {{ lesson.start_time }}{% if lesson.end_time %} - {{ lesson.end_time }}{% endif %}
+                                </span>
+                            </li>
+
+                            {% endfor %}
+                        </ul>
+                        {% else %}
+                        <div class="small text-muted">No lessons</div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </a>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}
