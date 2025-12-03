@@ -1,0 +1,36 @@
+{% extends 'schedule/base.html' %}
+
+{% block content %}
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h1 class="h4 mb-0">Latest Homeworks</h1>
+        <a href="{% url 'homeworks:add_homework' %}" class="btn btn-sm btn-primary">➕ New</a>
+    </div>
+    
+    {% if homeworks %}
+        {% for homework in homeworks %}
+            <div class="card mb-3">
+                <div class="card-body">
+                    <h5 class="card-title mb-1">{{ homework.title }}</h5>
+                    <p class="small text-muted mb-2">Created: {{ homework.created_at|date:"M d, Y H:i" }}</p>
+                    
+                    {% if homework.description %}
+                        <p class="small mb-2">{{ homework.description }}</p>
+                    {% endif %}
+                    
+                    {% if homework.due_time %}
+                        <p class="small text-danger"><strong>📅 Due: {{ homework.due_time }}</strong></p>
+                    {% endif %}
+                </div>
+            </div>
+        {% endfor %}
+    {% else %}
+        <div class="card">
+            <div class="card-body text-center">
+                <p class="text-muted">No homeworks yet!</p>
+                <a href="{% url 'homeworks:add_homework' %}" class="btn btn-sm btn-primary">
+                    ➕ Create your first homework
+                </a>
+            </div>
+        </div>
+    {% endif %}
+{% endblock %}
